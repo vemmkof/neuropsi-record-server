@@ -1,10 +1,10 @@
 package com.ipn.escom.neuropsi.record.server.entity;
 
+import com.ipn.escom.neuropsi.record.server.entity.values.Laterality;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mx.ipn.escom.neuropsicommons.entity.values.Laterality;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 

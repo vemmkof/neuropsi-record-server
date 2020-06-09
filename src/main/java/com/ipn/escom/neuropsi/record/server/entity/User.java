@@ -12,6 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -29,44 +30,44 @@ public class User implements Serializable {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Positive
+    @Positive
     private Long idUser;
 
-    //    @Email
-//    @NotBlank
+    @Email
+    @NotBlank
     @Column(nullable = false)
     private String username;
 
-    //    @NotBlank
+    @NotBlank
     @JsonProperty(access = Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password;
 
-    //    @NotEmpty
+    @NotEmpty
     @Column(nullable = false)
     private String name;
 
-    //    @NotEmpty
+    @NotEmpty
     @Column(nullable = false)
     private String lastName;
 
     @Column(nullable = true)
     private String secondLastName;
 
-    //    @Past
+    @Past
     @Column(nullable = false)
     private Date dateOfBirth;
 
-    //    @NotEmpty
+    @NotEmpty
     @Column(nullable = false)
     private String phone;
 
-    //    @NotEmpty
+    @NotEmpty
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Gender gender;
 
-    //    @NotEmpty
+    @NotEmpty
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
