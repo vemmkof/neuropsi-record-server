@@ -1,7 +1,7 @@
 #!/bin/bash
-heroku config:set USERNAME=record-server
-heroku config:set PASSWORD=efc29ea799f993c9f404509df2f596cb
+heroku config:set USERNAME=neuropsi
+heroku config:set PASSWORD=0e4e034f3504195e386b1bdcf4fbfe78
 heroku config:set PROFILE=dev
 heroku config:set HOSTNAME=secure-temple-30333.herokuapp.com
 heroku config:set AUTH_URL=http://protected-caverns-83632.herokuapp.com
-heroku config:set EUREKA_URL=https://eureka-server:b9cd4bdd5f554c576ba9e85b097f2be0@safe-shore-20278.herokuapp.com
+heroku config:set EUREKA_URL=https://neuropsi:0e4e034f3504195e386b1bdcf4fbfe78@safe-shore-20278.herokuapp.com
