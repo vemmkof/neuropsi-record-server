@@ -1,0 +1,43 @@
+logging:
+  level:
+    org:
+      springframework:
+        web: debug
+server:
+  port: ${SERVER_POR:8090}
+spring:
+  application:
+    name: neuropsi-record-service
+  profiles:
+    active: ${PROFILE:dev}
+  security:
+    user:
+      name: ${USERNAME:username}
+      password: ${PASSWORD:password}
+    oauth:
+      clientId: vueNeuropsi
+      clientSecret: 6a26c09683332161f2654a271e321ea8
+      accessTokenValiditySeconds: 9600
+      refreshTokenValiditySeconds: 9600
+      scopes: read,write
+      grantTypes: password,refresh_token
+eureka:
+  client:
+    service-url:
+      # ${EUREKA_URL:https://eureka-server:b9cd4bdd5f554c576ba9e85b097f2be0@safe-shore-20278.herokuapp.com}/eureka/
+      defaultZone: ${EUREKA_URL:http://username:password@localhost:8761}/eureka/
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+    info:
+      enabled: true
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+auth:
+  server:
+    # http://protected-caverns-83632.herokuapp.com
+    host: ${AUTH_URL:localhost:8090}/auth
