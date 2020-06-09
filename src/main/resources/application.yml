@@ -26,7 +26,7 @@ spring:
 eureka:
   client:
     service-url:
-      # ${EUREKA_URL:https://eureka-server:b9cd4bdd5f554c576ba9e85b097f2be0@safe-shore-20278.herokuapp.com}/eureka/
+      #defaultZone: ${EUREKA_URL:https://neuropsi:0e4e034f3504195e386b1bdcf4fbfe78@safe-shore-20278.herokuapp.com}/eureka/
       defaultZone: ${EUREKA_URL:http://username:password@localhost:8761}/eureka/
 management:
   endpoint:

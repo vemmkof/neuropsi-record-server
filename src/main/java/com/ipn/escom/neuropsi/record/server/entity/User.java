@@ -89,10 +89,11 @@ public class User implements Serializable {
     private boolean enabled = false;
 
     @CreationTimestamp
-    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created")
     private Timestamp created;
 
     @UpdateTimestamp
+    @Column(name = "updated")
     private Timestamp updated;
 
 }

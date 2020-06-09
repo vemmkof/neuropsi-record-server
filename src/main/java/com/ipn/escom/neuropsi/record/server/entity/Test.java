@@ -37,10 +37,10 @@ public class Test implements Serializable {
     private boolean finished;
 
     @CreationTimestamp
-    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created")
     private Timestamp created;
 
     @UpdateTimestamp
-    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "updated")
     private Timestamp updated;
 }

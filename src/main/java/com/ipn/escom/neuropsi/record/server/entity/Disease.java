@@ -21,23 +21,29 @@ import java.sql.Timestamp;
 public class Disease implements Serializable {
 
     private static final long serialVersionUID = -888116781243013904L;
-    @CreationTimestamp
-    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    Timestamp created;
-    @UpdateTimestamp
-    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    Timestamp updated;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Positive
     private Long idDidease;
+
     @NotEmpty
     @Column(nullable = false)
     private String description;
+
     @NotEmpty
     @Column(nullable = false)
     private String phone;
+
     @NotEmpty
     @Column(nullable = false)
     private String address;
+
+    @CreationTimestamp
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created")
+    private Timestamp created;
+
+    @UpdateTimestamp
+    @Column(name = "updated")
+    private Timestamp updated;
 }

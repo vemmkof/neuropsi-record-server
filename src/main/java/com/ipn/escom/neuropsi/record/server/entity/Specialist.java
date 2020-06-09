@@ -44,11 +44,11 @@ public class Specialist implements Serializable {
     private User user;
 
     @CreationTimestamp
-    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created")
     private Timestamp created;
 
     @UpdateTimestamp
-    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "updated")
     private Timestamp updated;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

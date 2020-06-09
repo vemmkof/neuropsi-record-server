@@ -21,24 +21,30 @@ import java.sql.Timestamp;
 public class Institute implements Serializable {
 
     private static final long serialVersionUID = 2087985402313143226L;
-    @CreationTimestamp
-    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    Timestamp created;
-    @UpdateTimestamp
-    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    Timestamp updated;
+
     @Id
     @Column(name = "id_institute")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Positive
     private Long idInstitute;
+
     @NotEmpty
     @Column(nullable = false)
     private String name;
+
     @NotEmpty
     @Column(nullable = false)
     private String address;
+
     @NotEmpty
     @Column(nullable = false)
     private String phone;
+
+    @CreationTimestamp
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created")
+    private Timestamp created;
+
+    @UpdateTimestamp
+    @Column(name = "updated")
+    private Timestamp updated;
 }
