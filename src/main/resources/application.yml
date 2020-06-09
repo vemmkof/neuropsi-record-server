@@ -5,6 +5,8 @@ logging:
         web: debug
 server:
   port: ${SERVER_POR:8090}
+  servlet:
+    context-path: /api/record
 spring:
   application:
     name: neuropsi-record-service
