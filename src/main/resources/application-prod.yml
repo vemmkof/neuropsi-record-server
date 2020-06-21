@@ -1,9 +1,12 @@
 spring:
   datasource:
     type: org.apache.tomcat.jdbc.pool.DataSource
-    url: jdbc:mysql://us-cdbr-iron-east-01.cleardb.net/heroku_df2033176d61b3d?reconnect=true
-    username: b65e4109baf036
-    password: 1428af9d
+    #url: jdbc:mysql://us-cdbr-iron-east-01.cleardb.net/heroku_df2033176d61b3d?reconnect=true
+    #username: b65e4109baf036
+    #password: 1428af9d
+    url: jdbc:mysql://localhost:3306/neuropsi?reconnect=true&useSSL=false&serverTimezone=UTC
+    username: vemm
+    password: abc123??
     initialization-mode: NEVER
     tomcat:
       initial-size: 2
@@ -14,6 +17,9 @@ spring:
       default-auto-commit: true
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     open-in-view: true
     show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL57Dialect

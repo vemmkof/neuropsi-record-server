@@ -1,5 +1,6 @@
 package com.ipn.escom.neuropsi.record.server;
 
+import com.ipn.escom.neuropsi.commons.exception.NoDataException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -12,4 +13,6 @@ public class NeuropsiRecordServerApplication {
         SpringApplication.run(NeuropsiRecordServerApplication.class, args);
     }
 
+    private void method() throws NoDataException {
+    }
 }

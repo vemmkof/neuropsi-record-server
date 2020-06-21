@@ -11,7 +11,7 @@ spring:
   application:
     name: neuropsi-record-service
   profiles:
-    active: ${PROFILE:dev}
+    active: ${PROFILE:prod}
   security:
     user:
       name: ${USERNAME:username}
@@ -26,8 +26,8 @@ spring:
 eureka:
   client:
     service-url:
-      #defaultZone: ${EUREKA_URL:https://neuropsi:0e4e034f3504195e386b1bdcf4fbfe78@safe-shore-20278.herokuapp.com}/eureka/
-      defaultZone: ${EUREKA_URL:http://username:password@localhost:8761}/eureka/
+      defaultZone: ${EUREKA_URL:https://neuropsi:0e4e034f3504195e386b1bdcf4fbfe78@safe-shore-20278.herokuapp.com}/eureka/
+      #defaultZone: ${EUREKA_URL:http://username:password@localhost:8761}/eureka/
 management:
   endpoint:
     shutdown:

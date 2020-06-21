@@ -23,7 +23,6 @@ public class Institute implements Serializable {
     private static final long serialVersionUID = 2087985402313143226L;
 
     @Id
-    @Column(name = "id_institute")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Positive
     private Long idInstitute;
