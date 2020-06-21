@@ -1,5 +1,7 @@
 package com.ipn.escom.neuropsi.record.server.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +13,8 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebSecurityConfig.class);
 
     @Value("${spring.security.oauth.client-id}")
     private String clientId;
@@ -35,8 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         RemoteTokenServices remoteTokenServices = new RemoteTokenServices();
         remoteTokenServices.setClientId(clientId);
         remoteTokenServices.setClientSecret(clientSecret);
-        remoteTokenServices
-                .setCheckTokenEndpointUrl(String.format("%s%s", authServerHost, "/oauth/check_token"));
+        String url = String.format("%s%s", authServerHost, "/oauth/check_token");
+        LOGGER.info("oauth url: {}", url);
+        remoteTokenServices.setCheckTokenEndpointUrl(url);
         return remoteTokenServices;
     }
 

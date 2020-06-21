@@ -4,14 +4,14 @@ logging:
       springframework:
         web: debug
 server:
-  port: ${SERVER_POR:8090}
+  port: ${PORT:8762}
   servlet:
     context-path: /api/record
 spring:
   application:
     name: neuropsi-record-service
   profiles:
-    active: ${PROFILE:prod}
+    active: ${PROFILE:dev}
   security:
     user:
       name: ${USERNAME:username}
@@ -24,10 +24,11 @@ spring:
       scopes: read,write
       grantTypes: password,refresh_token
 eureka:
+  instance:
+    hostname: ${HOSTNAME:localhost}
   client:
     service-url:
-      defaultZone: ${EUREKA_URL:https://neuropsi:0e4e034f3504195e386b1bdcf4fbfe78@safe-shore-20278.herokuapp.com}/eureka/
-      #defaultZone: ${EUREKA_URL:http://username:password@localhost:8761}/eureka/
+      defaultZone: ${EUREKA_URL:http://username:password@localhost:8761}/eureka/
 management:
   endpoint:
     shutdown:
@@ -41,5 +42,4 @@ management:
         include: "*"
 auth:
   server:
-    host: http://protected-caverns-83632.herokuapp.com/auth
-    #host: ${AUTH_URL:localhost:8090}/auth
+    host: ${OAUTH_URL:localhost:8762/auth}
