@@ -41,5 +41,5 @@ management:
         include: "*"
 auth:
   server:
-    # http://protected-caverns-83632.herokuapp.com
-    host: ${AUTH_URL:localhost:8090}/auth
+    host: http://protected-caverns-83632.herokuapp.com/auth
+    #host: ${AUTH_URL:localhost:8090}/auth
