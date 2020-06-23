@@ -3,10 +3,10 @@ spring:
     url: jdbc:mysql://localhost:3306/neuropsi?reconnect=true&useSSL=false&serverTimezone=UTC
     username: vemm
     password: abc123??
-    initialization-mode: ALWAYS
+    initialization-mode: NEVER
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     open-in-view: true
     show-sql: true
     properties:
