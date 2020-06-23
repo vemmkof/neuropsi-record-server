@@ -9,12 +9,18 @@ import com.ipn.escom.neuropsi.record.server.repository.InstituteRepository;
 import com.ipn.escom.neuropsi.record.server.repository.SpecialistRepository;
 import com.ipn.escom.neuropsi.record.server.repository.UserRepository;
 import com.ipn.escom.neuropsi.record.server.service.AdminService;
+import com.ipn.escom.neuropsi.record.server.service.support.MailSupport;
 import com.ipn.escom.neuropsi.record.server.service.support.UserRegistrySupport;
+import freemarker.template.TemplateException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -24,15 +30,20 @@ public class AdminServiceImpl implements AdminService {
     private final InstituteRepository instituteRepository;
     private final SpecialistRepository specialistRepository;
     private final UserRegistrySupport userRegistrySupport;
+    private final MailSupport mailSupport;
 
     @Override
     @Transactional
-    public Specialist saveSpecialist(SpecialistRegistryDto registryDto) {
+    public Specialist saveSpecialist(SpecialistRegistryDto registryDto) throws TemplateException, IOException, MessagingException {
         Specialist specialist = registryDto.getSpecialist();
         @NotNull User user = specialist.getUser();
         @NotNull Institute institute = specialist.getInstitute();
         user = userRegistrySupport.processNewUser(user, Role.SPECIALIST);
         user = userRepository.save(user);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("name", user.getName());
+        parameters.put("hashcode", user.getPassword());
+        mailSupport.senMail(user.getUsername(), "", MailSupport.NEW_USER_TEMPLATE, parameters);
         institute = instituteRepository
                 .findById(institute.getIdInstitute())
                 .orElse(null);

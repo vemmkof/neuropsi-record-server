@@ -59,7 +59,7 @@ class AdminServiceImplTest {
     }
 
     @Test
-    void saveSpecialist() {
+    void saveSpecialist() throws Exception {
         SpecialistRegistryDto dto = SpecialistRegistryDto.builder()
                 .specialist(specialist).build();
         specialist = adminService.saveSpecialist(dto);

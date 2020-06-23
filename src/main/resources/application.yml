@@ -23,6 +23,23 @@ spring:
       refreshTokenValiditySeconds: 9600
       scopes: read,write
       grantTypes: password,refresh_token
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    port: 587
+    username: neuropsi.escom@gmail.com
+    password: abc123??
+    properties:
+      mail:
+        smtp:
+          auth: true
+        starttls:
+          enable: true
+    protocol: smtp
+    test-connection: false
+  freemarker:
+    template-loader-path: classpath:/templates
+    suffix: .ftl
 eureka:
   instance:
     hostname: ${HOSTNAME:localhost}
