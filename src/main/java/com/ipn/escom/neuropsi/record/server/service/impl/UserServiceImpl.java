@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(userPasswordDto.getUsername())
                 .orElseThrow(() -> new UserNotFoundException("El usuario solicitado no existe"));
         @NotBlank String password = user.getPassword();
-        if (!password.equals(userPasswordDto.getNewPassword())) {
+        if (!password.equals(userPasswordDto.getPassword())) {
             throw new InvalidPasswordReset("Credenciales no válidas");
         }
         user.setPassword(passwordEncoder.encode(userPasswordDto.getNewPassword()));
