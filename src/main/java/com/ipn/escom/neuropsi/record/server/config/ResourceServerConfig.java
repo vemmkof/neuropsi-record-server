@@ -34,9 +34,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests() //
-                .antMatchers(HttpMethod.POST, "/user/reset/password").permitAll()
-                .antMatchers("/admin/**").hasRole(Role.ADMINISTRATOR.name())
-                .antMatchers("/specialist/**").hasAnyRole(Role.ADMINISTRATOR.name(), Role.SPECIALIST.name())
+                .antMatchers(HttpMethod.POST, "/api/record/user/reset/password").permitAll()
+                .antMatchers("/api/record/admin/**").hasRole(Role.ADMINISTRATOR.name())
+                .antMatchers("/api/record/specialist/**").hasAnyRole(Role.ADMINISTRATOR.name(), Role.SPECIALIST.name())
                 .anyRequest().authenticated() //
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
