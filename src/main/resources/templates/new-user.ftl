@@ -9702,7 +9702,7 @@
             "
           >
             <a
-              href="${hashcode}"
+              href="https://neuropsi-frontend.firebaseapp.com/user/reset/password?username=${username}&key=${hashcode}"
               class="btn btn-primary"
               style="
                 box-sizing: border-box;

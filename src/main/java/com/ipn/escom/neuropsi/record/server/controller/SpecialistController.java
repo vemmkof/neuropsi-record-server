@@ -7,10 +7,13 @@ import com.ipn.escom.neuropsi.record.server.service.SpecialistService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/specialist")
@@ -24,9 +27,9 @@ public class SpecialistController {
 
 
     @PostMapping("/patient")
-    public ResponseDto<Patient> savePatient(@RequestBody PatientRegistryDto registryDto) {
+    public ResponseDto<Patient> savePatient(@RequestBody PatientRegistryDto registryDto, @Validated Principal principal) {
         try {
-            Patient patient = specialistService.savePatient(registryDto);
+            Patient patient = specialistService.savePatient(registryDto, principal);
             return ResponseDto.<Patient>builder()
                     .entity(patient).message("Paciente creado.").build();
         } catch (Exception e) {

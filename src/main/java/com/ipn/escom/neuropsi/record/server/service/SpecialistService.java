@@ -7,7 +7,8 @@ import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.security.Principal;
 
 public interface SpecialistService {
-    Patient savePatient(PatientRegistryDto registryDto) throws UserNameNotAvailableException, TemplateException, IOException, MessagingException;
+    Patient savePatient(PatientRegistryDto registryDto, Principal principal) throws UserNameNotAvailableException, TemplateException, IOException, MessagingException;
 }
