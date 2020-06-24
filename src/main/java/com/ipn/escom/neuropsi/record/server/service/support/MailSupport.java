@@ -27,12 +27,13 @@ public class MailSupport {
     private final JavaMailSender javaMailSender;
     private final Configuration freemarkerConfiguration;
 
+    public static final String NEW_USER = "Registro de nuevo usuario";
     public static final String NEW_USER_TEMPLATE = "new-user.ftl";
     public static final String NEW_MODULE_TEMPLATE = "new-module.ftl";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MailSupport.class);
 
-    public void senMail(String to, String subject, String templateName, Map<String, Object> parameters) throws IOException, TemplateException, MessagingException {
+    public void sendMail(String to, String subject, String templateName, Map<String, Object> parameters) throws IOException, TemplateException, MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(getMimeBodyPart(getHtml(templateName, parameters)));

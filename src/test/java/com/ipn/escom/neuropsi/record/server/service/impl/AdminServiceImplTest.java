@@ -62,7 +62,7 @@ class AdminServiceImplTest {
     void saveSpecialist() throws Exception {
         SpecialistRegistryDto dto = SpecialistRegistryDto.builder()
                 .specialist(specialist).build();
-        specialist = adminService.saveSpecialist(dto);
+        specialist = adminService.saveSpecialist(dto, Role.ADMINISTRATOR);
         assertThat(specialist.getIdSpecialist()).isNotNull();
         assertThat(specialist.getIdSpecialist()).isGreaterThan(0);
         user = specialist.getUser();

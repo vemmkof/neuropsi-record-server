@@ -1,6 +1,8 @@
 package com.ipn.escom.neuropsi.record.server.config;
 
+import com.ipn.escom.neuropsi.commons.entity.values.Role;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -32,7 +34,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests() //
-                // .antMatchers("/hello").hasRole("ADMINISTRATOR") //
+                .antMatchers(HttpMethod.POST, "/user/reset/password").permitAll()
+                .antMatchers("/admin/**").hasRole(Role.ADMINISTRATOR.name())
+                .antMatchers("/specialist/**").hasAnyRole(Role.ADMINISTRATOR.name(), Role.SPECIALIST.name())
                 .anyRequest().authenticated() //
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

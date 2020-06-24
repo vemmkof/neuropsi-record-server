@@ -17,7 +17,9 @@ public class UserRegistrySupport {
 
     public User processNewUser(User user, Role role) {
         @NotBlank String password = user.getPassword();
-        password = UUID.fromString(user.getUsername().concat(password)).toString();
+        password = UUID
+                .nameUUIDFromBytes(user.getUsername().concat(password).getBytes())
+                .toString();
         user.setPassword(passwordEncoder.encode(password));
         user.setEnabled(false);
         user.setRole(role);
