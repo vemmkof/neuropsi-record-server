@@ -4,7 +4,7 @@ logging:
       springframework:
         web: debug
 server:
-  port: ${PORT:0}
+  port: ${PORT:9090}
   servlet:
     context-path: /api/record
 spring:
@@ -62,4 +62,5 @@ management:
         include: "*"
 auth:
   server:
+    #host: https://arcane-depths-42325.herokuapp.com
     host: ${OAUTH_URL:localhost:8762/auth}

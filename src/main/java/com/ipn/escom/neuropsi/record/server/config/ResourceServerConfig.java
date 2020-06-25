@@ -33,10 +33,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        System.out.println(Role.ADMINISTRATOR.name());
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/user/reset/password").permitAll()
-                .antMatchers("/admin/**").hasRole(Role.ADMINISTRATOR.name())
-                .antMatchers("/specialist/**").hasAnyRole(Role.ADMINISTRATOR.name(), Role.SPECIALIST.name())
+                .antMatchers("/admin/**").hasAuthority(Role.ADMINISTRATOR.name())
+                .antMatchers("/specialist/**").hasAnyAuthority(Role.ADMINISTRATOR.name(), Role.SPECIALIST.name())
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
