@@ -55,7 +55,7 @@ public class AdminController {
         try {
             Institute institute = adminService.saveInstitute(registryDto);
             return ResponseDto.<Institute>builder()
-                    .entity(institute).message("Especialista creado.").build();
+                    .entity(institute).message("Instituto creado.").build();
         } catch (Exception e) {
             LOGGER.error(ERROR, e.getMessage());
             return ResponseDto.<Institute>builder()
