@@ -12,6 +12,8 @@ import com.ipn.escom.neuropsi.record.server.service.support.MailSupport;
 import com.ipn.escom.neuropsi.record.server.service.support.UserRegistrySupport;
 import freemarker.template.TemplateException;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,7 @@ import javax.mail.MessagingException;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +29,7 @@ import java.util.Map;
 @Service
 @AllArgsConstructor
 public class SpecialistServiceImpl implements SpecialistService {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(SpecialistServiceImpl.class);
     private final UserRepository userRepository;
     private final DiseaseRepository diseaseRepository;
     private final PatientRepository patientRepository;
@@ -34,6 +37,7 @@ public class SpecialistServiceImpl implements SpecialistService {
     private final PatientDiseaseRepository patientDiseaseRepository;
     private final SpecialistRepository specialistRepository;
     private final PatientSpecialistRepository patientSpecialistRepository;
+    private final InstituteRepository instituteRepository;
     private final MailSupport mailSupport;
 
     @Override
@@ -45,13 +49,17 @@ public class SpecialistServiceImpl implements SpecialistService {
         if (userRepository.findByUsername(user.getUsername()).orElse(null) != null) {
             throw new UserNameNotAvailableException("Nombre de usuario no disponible");
         }
+        LOGGER.info("paciente: {}", patient);
+        LOGGER.info("validar enfermedades");
         validateDiseases(registryDto.getDiseases());
         user = userRegistrySupport.processNewUser(user, Role.PATIENT);
         user = userRepository.save(user);
+        LOGGER.info("user: {}", user);
         sendMail(user);
         patient.setUser(user);
         patient = patientRepository.save(patient);
         Patient finalPatient = patient;
+        LOGGER.info("finalpaciente: {}", finalPatient);
         registryDto.getDiseases().forEach(disease -> {
             patientDiseaseRepository.save(
                     PatientDisease.builder()
@@ -64,9 +72,20 @@ public class SpecialistServiceImpl implements SpecialistService {
             );
         });
         String name = principal.getName();
+        LOGGER.info("name {}", name);
         User specialistUser = userRepository.findByUsername(name).orElse(null);
+        LOGGER.info("specialistUser {}", specialistUser);
         Specialist specialist = specialistRepository.findByUser(specialistUser)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElse(null);
+        if (specialist == null) {
+            specialist = specialistRepository.save(
+                    Specialist.builder()
+                            .institute(instituteRepository.findAll().get(0))
+                            .professionalId("N/A")
+                            .user(specialistUser)
+                            .build()
+            );
+        }
         PatientSpecialist patientSpecialist = PatientSpecialist.builder()
                 .specialist(specialist).patient(patient)
                 .patientSpecialistKey(PatientSpecialistKey.builder()
@@ -76,6 +95,11 @@ public class SpecialistServiceImpl implements SpecialistService {
                 .build();
         patientSpecialistRepository.save(patientSpecialist);
         return patient;
+    }
+
+    @Override
+    public ArrayList<Disease> getDiseases() {
+        return new ArrayList<>(diseaseRepository.findAll());
     }
 
     private void sendMail(User user) throws TemplateException, IOException, MessagingException {
@@ -89,6 +113,7 @@ public class SpecialistServiceImpl implements SpecialistService {
 
     private void validateDiseases(List<Disease> diseases) {
         diseases.forEach(disease -> {
+            LOGGER.info("disease: {}", disease);
             disease = diseaseRepository.findById(disease.getIdDisease())
                     .orElseThrow(IllegalArgumentException::new);
         });
